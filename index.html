@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aritra Chakraborty</title>
+    <link href="https://img.icons8.com/ios-filled/50/000000/home-page.png" rel="Home Icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        a {
+            color: #0bf;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        nav {
+            background: #000;
+            padding: 20px 0;
+            border-bottom: 2px solid #0bf;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav li {}
+
+        nav a {
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        .menu-icon {
+            display: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #0bf;
+            position: absolute;
+            right: 20px;
+            top: 22px;
+        }
+
+        .home {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0;
+        }
+
+        .home .intro {
+            flex: 1;
+        }
+
+        .home .intro h1 {
+            font-size: 3em;
+            color: #0bf;
+            margin-bottom: 0.5em;
+        }
+
+        .home .intro p {
+            font-size: 1.2em;
+        }
+
+        .home .profile-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .home img {
+            max-width: 250px;
+            width: 100%;
+            height: auto;
+            border: 3px solid #0bf;
+            image-rendering: pixelated;
+        }
+
+        section {
+            margin: 40px 0;
+            padding: 20px;
+            border-top: 2px solid #0bf;
+            border-bottom: 2px solid #0bf;
+        }
+
+        section h2 {
+            margin-bottom: 20px;
+            color: #0bf;
+            text-align: center;
+        }
+
+        #experience .job {
+            margin-bottom: 20px;
+        }
+
+        #experience h3 {
+            margin: 10px 0;
+            color: #0bf;
+        }
+
+        .skills-container {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .skills-category {
+            flex: 1;
+        }
+
+        .skills-category ul {
+            list-style: square;
+            padding-left: 20px;
+        }
+
+        .project {
+            border: 1px solid #0bf;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #111;
+        }
+
+        .project h3 {
+            margin-bottom: 10px;
+            color: #0bf;
+        }
+
+        .project p {
+            margin-bottom: 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin: 10px 0 5px;
+        }
+
+        form input,
+        form textarea {
+            padding: 8px;
+            margin-bottom: 10px;
+            background: #111;
+            color: #fff;
+            border: 1px solid #0bf;
+        }
+
+        form button {
+            padding: 10px;
+            background: #0af;
+            color: #000;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background: #0bf;
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE BREAKPOINTS */
+        @media (max-width: 992px) {
+            .home .intro h1 {
+                font-size: 2.5em;
+            }
+
+            .home .intro p {
+                font-size: 1.1em;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .home {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .home .profile-image {
+                margin-top: 20px;
+            }
+
+            .skills-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .skills-category {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .project {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                text-align: center;
+                background: #000;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            nav li {
+                margin: 10px 0;
+            }
+
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul id="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="home" class="home">
+            <div class="intro">
+                <h1>Aritra Chakraborty</h1>
+                <p>Full-Stack Developer & Cybersecurity Enthusiast</p>
+            </div>
+            <div class="profile-image">
+                <img src="Profile_Image.png" alt="Profile Picture">
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About Me</h2>
+            <p>I am currently persuing B.Tech in Computer Science with Specialization in Cyber-Security at <a
+                    href="https://iiitkottayam.ac.in/">IIIT Kottayam</a>. I have a passion for building web applications
+                and enhancing security. In my free time, I enjoy exploring open-source projects and staying up-to-date
+                with the latest tech trends.</p>
+            <p>I have interests in <a href="https://en.wikipedia.org/wiki/Cybersecurity">cybersecurity</a> and
+                contribute to security awareness communities. When I'm not coding, I like to work on digital art and
+                gaming.</p>
+        </section>
+
+        <section id="experience">
+            <h2>Experience</h2>
+            <div class="job">
+                <h3>ApoorvCTF - 2025 <a href="https://csyclub.iiitkottayam.ac.in/">Cyber-Security Club@IIITK</a></h3>
+                <p><em>28th February, 2025</em></p>
+                <p>I am thrilled to participate in Apoorv CTF 2025 at IIIT Kottayam, an event that challenges and
+                    sharpens cybersecurity skills. As a Computer Science student specializing in Cybersecurity, I see
+                    this competition as an excellent opportunity to apply my knowledge, enhance my problem-solving
+                    abilities, and learn from like-minded enthusiasts. CTFs push the boundaries of security research,
+                    and I am eager to tackle complex scenarios, exchange ideas, and identify areas for improvement. My
+                    goal is to refine my techniques, deepen my understanding of security concepts, and contribute
+                    meaningfully to the cybersecurity community. This experience will be invaluable in my journey toward
+                    becoming a proficient security professional.
+                </p>
+            </div>
+            <div class="job">
+                <h3>Solution Challenge 2025 <a
+                        href="https://vision.hack2skill.com/event/solutionschallenge2025?utm_source=hack2skill&utm_medium=homepage">Google</a>
+                </h3>
+                <p><em>Jan 2025 - Apr 2025</em></p>
+                <p>Our hackathon project centered around an innovative drug discovery application designed to accelerate
+                    and streamline the process of identifying potential pharmaceutical compounds. Leveraging AI-driven
+                    algorithms, we developed a platform capable of analyzing molecular structures, predicting drug
+                    interactions, and optimizing chemical properties to enhance efficacy. By integrating machine
+                    learning with biomedical datasets, the app offers researchers and pharmaceutical companies a
+                    powerful tool for identifying novel drug candidates. The project reinforced our expertise in data
+                    science, bioinformatics, and AI model development, and provided valuable insights into computational
+                    drug discovery. Through collaboration and problem-solving, we aimed to make a meaningful
+                    contribution to the field of healthcare and medicine.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3>Cybersecurity</h3>
+                    <ul>
+                        <li>Network Security</li>
+                        <li>Penetration Testing</li>
+                        <li>Reverse Engineering</li>
+                        <li>Encryption & Crypto</li>
+                        <li>Cloud Security</li>
+                        <li>Web Application Security</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3>Backend</h3>
+                    <ul>
+                        <li>Spring-Boot</li>
+                        <li>Python</li>
+                        <li>MongoDB</li>
+                        <li>MySQL</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3>Programming Languages</h3>
+                    <ul>
+                        <li>C/C++</li>
+                        <li>Java</li>
+                        <li>Python</li>
+                        <li>Rust</li>
+                    </ul>
+                </div>
+                <div class="skills-category">
+                    <h3>Frontend</h3>
+                    <ul>
+                        <li>HTML / CSS</li>
+                        <li>JavaScript</li>
+                        <li>React</li>
+                        <li>Bootstrap</li>
+                    </ul>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <div class="project">
+                <h3>PharmAI - AI Drug Discovery App</h3>
+                <p>A web application that ingests molecular datasets (CSV), runs predictive analytics with a Python
+                    microservice (TensorFlow & scikit-learn), and visualizes results in a React frontend.
+                    Tech: React · Spring Boot · Python (Flask) · TensorFlow <a
+                        href="https://github.com/Aritra-Script/PharmAI">View Project</a></p>
+            </div>
+            <div class="project">
+                <h3>Java Text-to-Speech Engine</h3>
+                <p>A Java library that converts text into natural-sounding speech using open-source TTS models. Features
+                    include adjustable voice profiles, SSML support, and export to WAV/MP3.
+                    Tech: Java · Maven · FreeTTS · SSML · JUnit <a
+                        href="https://github.com/Aritra-Script/Java-tts-project">View Project</a></p>
+            </div>
+            <div class="project">
+                <h3>Project Three</h3>
+                <p>A personal blog platform focused on cybersecurity articles. Built using Django and deployed on AWS.
+                    <a href="#">View Project</a>
+                </p>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Your Name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+            <div class="social-links">
+                <p>Find me on:
+                    <a
+                        href="https://www.linkedin.com/in/aritra-chakraborty-303a33325?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7QJVugWQRTm9ZI%2F0TaXkvw%3D%3D">LinkedIn</a>
+                    |
+                    <a href="https://github.com/Aritra-Script">GitHub</a> |
+                    <a href="#">Twitter</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var navLinks = document.getElementById("nav-links");
+            navLinks.classList.toggle("active");
+        }
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Thank you! Your message has been sent.');
+        });
+    </script>
+</body>
+
+</html>
