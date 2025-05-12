@@ -57,8 +57,8 @@
 
         /* Styling for outer square */
         .pixel-cursor-outer {
-            width: 20px;
-            height: 20px;
+            width: 10px;
+            height: 10px;
             background-color: rgba(0, 187, 255, 0.2);
             /* #0bf at 20% opacity */
             border: 1px solid #0bf;
@@ -68,8 +68,8 @@
 
         /* Styling for inner square */
         .pixel-cursor-inner {
-            width: 12px;
-            height: 12px;
+            width: 4px;
+            height: 4px;
             background-color: #0af;
             transition: transform 100ms ease-out;
         }
@@ -179,19 +179,29 @@
 
         .menu-icon {
             display: none;
+            /* We'll show it only on smaller screens via media queries */
             font-size: 28px;
             cursor: pointer;
             color: #0bf;
             position: absolute;
             right: 20px;
-            top: 22px;
+            top: 4px;
         }
+
+        /* In your media query for small screens, ensure .menu-icon is shown */
+        @media (max-width: 600px) {
+            .menu-icon {
+                display: block;
+            }
+        }
+
 
         .home {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin: 40px 0;
+            height: 100vh;
         }
 
         .home .intro {
@@ -218,7 +228,17 @@
             width: 100%;
             height: auto;
             border: 3px solid #0bf;
-            image-rendering: pixelated;
+            image-rendering: optimizeSpeed;
+        }
+
+        @media (max-width: 500px) {
+            .home {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 40px 0;
+                height: fit-content;
+            }
         }
 
         section {
@@ -226,6 +246,19 @@
             padding: 20px;
             border-top: 2px solid #0bf;
             border-bottom: 2px solid #0bf;
+            scroll-margin-top: 80px;
+        }
+
+        /* For mobile devices (example: max-width 600px) */
+        @media (max-width: 600px) {
+            .container {
+                padding-top: 70px;
+                /* Adjust if your navbar height changes */
+            }
+
+            section {
+                scroll-margin-top: 70px;
+            }
         }
 
         section h2 {
@@ -274,7 +307,7 @@
             margin-bottom: 0;
         }
 
-        form {
+        /* form {
             display: flex;
             flex-direction: column;
         }
@@ -302,7 +335,7 @@
 
         form button:hover {
             background: #0bf;
-        }
+        } */
 
         .social-links {
             text-align: center;
@@ -420,7 +453,7 @@
                 <p>Full-Stack Developer & Cybersecurity Enthusiast</p>
             </div>
             <div class="profile-image">
-                <img src="Profile_Image.png" alt="Profile Picture">
+                <img src="me.jpeg" alt="Profile Picture">
             </div>
         </section>
 
@@ -539,15 +572,10 @@
 
         <section id="contact">
             <h2>Contact</h2>
-            <form id="contact-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" placeholder="Your Name" required>
-                <label for="email">Email:</label>
-                <input type="email" id="email" placeholder="Your Email" required>
-                <label for="message">Message:</label>
-                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+            <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSeyUl8NBC_kC8T6jlGUVcPUTrj4u6pnt_Zfn99PKmvDl9QvUg/viewform?embedded=true"
+                width="100%" height="600px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
             <div class="social-links">
                 <p>Find me on:
                     <a
