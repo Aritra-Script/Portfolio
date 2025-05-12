@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aritra Chakraborty</title>
+    <title>AritraCodes</title>
     <link href="https://img.icons8.com/ios-filled/50/000000/home-page.png" rel="Home Icon">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: url('cursor.cur'), 6, 6;
+            scroll-behavior: smooth;
         }
 
         body {
@@ -18,6 +21,115 @@
             color: #fff;
             font-family: 'Courier New', Courier, monospace;
             line-height: 1.6;
+        }
+
+        /* Canvas that covers the entire background */
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* behind all other elements */
+            image-rendering: pixelated;
+            /* gives the pixel art look */
+        }
+
+
+        /* Container that tracks the mouse position */
+        .pixel-cursor {
+            position: fixed;
+            left: var(--cursor-x, 0px);
+            top: var(--cursor-y, 0px);
+            pointer-events: none;
+            z-index: 10000;
+        }
+
+        /* Center both cursor elements within the container */
+        .pixel-cursor-outer,
+        .pixel-cursor-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Styling for outer square */
+        .pixel-cursor-outer {
+            width: 20px;
+            height: 20px;
+            background-color: rgba(0, 187, 255, 0.2);
+            /* #0bf at 20% opacity */
+            border: 1px solid #0bf;
+            border-radius: 2px;
+            mix-blend-mode: difference;
+        }
+
+        /* Styling for inner square */
+        .pixel-cursor-inner {
+            width: 12px;
+            height: 12px;
+            background-color: #0af;
+            transition: transform 100ms ease-out;
+        }
+
+        /* Adjust the inner square on hover over interactive elements */
+        body.cursor-hover .pixel-cursor-inner {
+            /* Combine the centering translate with the scale */
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+
+        .my-name {
+            font-family: 'Press Start 2P', cursive;
+            -webkit-font-smoothing: none;
+            -moz-osx-font-smoothing: grayscale;
+            text-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+            /* Optional, for sharp edges */
+            /* Adjust the font size as desired */
+            font-size: 3em;
+        }
+
+        /* Popup Modal Styles */
+        .popup {
+            display: none;
+            /* hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            /* dark translucent background */
+            z-index: 10000;
+            /* sits on top of other elements */
+        }
+
+        .popup-content {
+            position: relative;
+            background-color: #fff;
+            color: #000;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 500px;
+            margin: 15% auto;
+            /* centers the modal */
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover {
+            color: #000;
         }
 
         .container {
@@ -274,9 +386,24 @@
 </head>
 
 <body>
+    <!-- Custom Pixelated Cursor -->
+    <div class="pixel-cursor">
+        <div class="pixel-cursor-outer"></div>
+        <div class="pixel-cursor-inner"></div>
+    </div>
+    <canvas id="bgCanvas"></canvas>
+    <!-- Popup Modal -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-button">&times;</span>
+            <p>I am actively looking for collaborative projects, internships, and job opportunities. Let's connect!</p>
+        </div>
+    </div>
+
     <nav>
         <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
         <ul id="nav-links">
+            AritraCodes
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About Me</a></li>
             <li><a href="#experience">Experience</a></li>
@@ -289,7 +416,7 @@
     <div class="container">
         <section id="home" class="home">
             <div class="intro">
-                <h1>Aritra Chakraborty</h1>
+                <h1 class="my-name">Aritra Chakraborty</h1>
                 <p>Full-Stack Developer & Cybersecurity Enthusiast</p>
             </div>
             <div class="profile-image">
@@ -299,7 +426,7 @@
 
         <section id="about">
             <h2>About Me</h2>
-            <p>I am currently persuing B.Tech in Computer Science with Specialization in Cyber-Security at <a
+            <p>I am currently pursuing B.Tech in Computer Science with Specialization in Cyber-Security at <a
                     href="https://iiitkottayam.ac.in/">IIIT Kottayam</a>. I have a passion for building web applications
                 and enhancing security. In my free time, I enjoy exploring open-source projects and staying up-to-date
                 with the latest tech trends.</p>
@@ -430,10 +557,37 @@
                     <a href="#">Twitter</a>
                 </p>
             </div>
+            <div class="skills-container">
+                © 2025 AritraCodes. All rights reserved.
+            </div>
         </section>
     </div>
 
     <script>
+        // Update the cursor position using CSS custom properties
+        document.addEventListener("mousemove", (e) => {
+            document.documentElement.style.setProperty("--cursor-x", `${e.clientX}px`);
+            document.documentElement.style.setProperty("--cursor-y", `${e.clientY}px`);
+        });
+
+        // Toggle a class on the body when hovering over clickable elements
+        document.addEventListener("mouseover", (e) => {
+            const target = e.target;
+            const isClickable =
+                target.tagName === "A" ||
+                target.tagName === "BUTTON" ||
+                target.closest("a") ||
+                target.closest("button") ||
+                target.getAttribute("role") === "button";
+
+            if (isClickable) {
+                document.body.classList.add("cursor-hover");
+            } else {
+                document.body.classList.remove("cursor-hover");
+            }
+        });
+
+        // Your existing scripts can follow or coexist with these new events.
         function toggleMenu() {
             var navLinks = document.getElementById("nav-links");
             navLinks.classList.toggle("active");
@@ -443,6 +597,87 @@
             alert('Thank you! Your message has been sent.');
         });
     </script>
+    <script>
+        // Get the canvas and its context
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            generateBackground();
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Parameters for the grid
+        const pixelSize = 5; // Reduced pixel cell size
+        let cols, rows;
+
+        function updateGridSize() {
+            cols = Math.ceil(canvas.width / pixelSize);
+            rows = Math.ceil(canvas.height / pixelSize);
+        }
+        updateGridSize();
+        window.addEventListener('resize', updateGridSize);
+
+        // Generate the static background pattern
+        function generateBackground() {
+            // Fill the background with black instead of deep blue
+            ctx.fillStyle = "#000";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Determine the density of rectangles based on canvas area
+            const area = canvas.width * canvas.height;
+            const numRectangles = Math.floor(area / 10000); // Adjust density if needed
+
+            for (let i = 0; i < numRectangles; i++) {
+                // Random position
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+
+                // Use smaller rectangle sizes (e.g., 2px to 5px)
+                const width = 2 + Math.random() * 3;  // from 2px to 5px
+                const height = 2 + Math.random() * 3; // from 2px to 5px
+
+                // Lower intensity using dark blue tones—but very low brightness → nearly black.
+                // Lightness range is now between 5% and 15%.
+                const lightness = 5 + Math.random() * 10;
+                const color = `hsl(210, 100%, ${lightness}%)`;
+
+                // Reduce the shadow blur (2-5 pixels) to keep things subtle
+                const blur = 2 + Math.random() * 3;
+
+                ctx.save();
+                ctx.shadowColor = color;
+                ctx.shadowBlur = blur;
+                ctx.fillStyle = color;
+                ctx.fillRect(x, y, width, height);
+                ctx.restore();
+            }
+        }
+    </script>
+    <script>
+        // When the page loads, show the popup
+        window.onload = function () {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'block';
+
+            // When the close button is clicked, hide the popup
+            document.querySelector('.close-button').addEventListener('click', function () {
+                popup.style.display = 'none';
+            });
+
+            // Optional: Hide the popup if the user clicks outside the popup content
+            window.addEventListener('click', function (event) {
+                if (event.target === popup) {
+                    popup.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
 </body>
 
 </html>
